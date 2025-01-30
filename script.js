@@ -22,6 +22,7 @@ themeSwitch.addEventListener("click", () => {
 
 
 /*Nav Open & Close Button*/
+const navLinks = document.querySelectorAll(".nav-menu .nav-link");
 const menuOpenButton = document.querySelector("#menu-open-button");
 const menuCloseButton = document.querySelector("#menu-close-button");
 
@@ -32,4 +33,15 @@ menuOpenButton.addEventListener("click", () => {
 
 // Close menu when close button is clicked
 menuCloseButton.addEventListener("click", () => menuOpenButton.click());
+
+// Close menu when the nav linkk is clicked
+navLinks.forEach(link => {
+    link.addEventListener("click", () => menuOpenButton.click());
+})
+/*END*/
+
+
+
+/*Current Year Update*/
+document.getElementById('spanYear').appendChild(document.createTextNode(new Date().getFullYear()))
 /*END*/
