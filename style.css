@@ -115,7 +115,7 @@ header #navbar {
 #navbar {
   position: relative;
   width: 100%;
-  height: 60px;
+  height: 80px;
   background: var(--primary-color);
   display: flex;
   align-items: center;
@@ -138,7 +138,7 @@ header #navbar {
 }
 #navbar .nav-menu .nav-link:hover {
   color: #fff;
-  background: var(--secondary-color);
+  background: var(--accent-color);
 }
 #navbar :where(#menu-close-button, #menu-open-button) {
   display: none;
@@ -154,6 +154,7 @@ header #navbar {
 .hero-section {
   min-height: 100vh;
   background: var(--secondary-color);
+  position: relative;
 }
 .hero-section .section-content {
   display: flex;
@@ -161,6 +162,9 @@ header #navbar {
   min-height: 100vh;
   color: var(--accent-color);
   justify-content: space-between;
+}
+.hero-section .hero-details {
+  z-index: 1;
 }
 .hero-section .hero-details .title {
   font-size: var(--font-size-xxl);
@@ -206,10 +210,60 @@ header #navbar {
 .hero-section .hero-image-wrapper {
   max-width: 500px;
   margin-right: 30px;
+  z-index: 1;
 }
 .hero-section .section-content {
   margin: 0 auto;
   padding: 0 20px;
+}
+.hero-section .cube {
+  position: absolute;
+  top: 80vh;
+  left: 45vw;
+  width: 10px;
+  height: 10px;
+  border: solid 1px #398582;
+  transform-origin: top left;
+  transform: scale(0) rotate(0deg) translate(-50%, -50%);
+  animation: cube 12s ease-in forwards infinite;
+}
+.hero-section .cube:nth-child(2n) {
+  border-color: #98fdf6;
+}
+.hero-section .cube:nth-child(2) {
+  animation-delay: 2s;
+  left: 25vw;
+  top: 20vh;
+}
+.hero-section .cube:nth-child(3) {
+  animation-delay: 4s;
+  left: 75vw;
+  top: 50vh;
+}
+.hero-section .cube:nth-child(4) {
+  animation-delay: 6s;
+  left: 90vw;
+  top: 10vh;
+}
+.hero-section .cube:nth-child(5) {
+  animation-delay: 8s;
+  left: 10vw;
+  top: 85vh;
+}
+.hero-section .cube:nth-child(6) {
+  animation-delay: 10s;
+  left: 50vw;
+  top: 10vh;
+}
+@keyframes cube {
+  from {
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: scale(20) rotate(960deg) translate(-50%, -50%);
+    opacity: 0;
+  }
 }
 
 /*END*/
@@ -217,38 +271,7 @@ header #navbar {
 #career {
   padding: 120px 0;
   background: var(--accent-color);
-}
-#career .about-details .text {
-  line-height: 30px;
-  margin: 50px 0 30px;
-  text-align: center;
-  font-size: var(--font-size-m);
-}
-#career .social-link-list {
-  display: flex;
-  gap: 25px;
-  justify-content: center;
-}
-#career .social-link-list .social-link {
-  color: var(--primary-color);
-  font-size: var(--font-size-l);
-  transition: 0.2s ease;
-}
-#career .social-link-list .social-link:hover {
   color: var(--secondary-color);
-}
-
-.section-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.section-content .about-image-wrapper .about-image {
-  width: 400px;
-  height: 400px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: var(--border-radius-circle);
 }
 
 .section-title {
@@ -269,7 +292,7 @@ header #navbar {
 
 .timeline {
   position: relative;
-  max-width: 1300px;
+  max-width: 80%;
   margin: 0 auto;
 }
 
@@ -291,9 +314,12 @@ header #navbar {
   position: relative;
   background-color: inherit;
   width: 50%;
+  transform: translateY(50px) rotate(-5deg) translateZ(0);
+  transition-delay: 0.3s;
+  transition: 0.4s;
+  opacity: 0;
+  /* The circles on the timeline */
 }
-
-/* The circles on the timeline */
 .container::after {
   content: "";
   position: absolute;
@@ -307,17 +333,22 @@ header #navbar {
   z-index: 1;
 }
 
+.container.inView {
+  opacity: 1;
+  transform: translateY(0px) rotate(0deg) translateZ(0);
+  z-index: 1;
+}
+
+.inView {
+  opacity: 1;
+  transform: translateY(0px) rotate(0deg) translateZ(0);
+}
+
 /* Place the container to the left */
 .left {
   left: 0;
+  /* Add arrows to the left container (pointing right) */
 }
-
-/* Place the container to the right */
-.right {
-  left: 50%;
-}
-
-/* Add arrows to the left container (pointing right) */
 .left::before {
   content: " ";
   height: 0;
@@ -331,7 +362,12 @@ header #navbar {
   border-color: transparent transparent transparent white;
 }
 
-/* Add arrows to the right container (pointing left) */
+/* Place the container to the right */
+.right {
+  left: 50%;
+  /* Add arrows to the right container (pointing left) */
+  /* Fix the circle for containers on the right side */
+}
 .right::before {
   content: " ";
   height: 0;
@@ -344,8 +380,6 @@ header #navbar {
   border-width: 10px 10px 10px 0;
   border-color: transparent white transparent transparent;
 }
-
-/* Fix the circle for containers on the right side */
 .right::after {
   left: -16px;
 }
@@ -359,18 +393,45 @@ header #navbar {
 }
 
 /*END*/
+/*SKILLS*/
+#skills {
+  padding: 120px 0;
+  background: var(--secondary-color);
+  color: var(--primary-text);
+}
+#skills .section-title {
+  text-align: center;
+  padding: 60px 0 100px;
+  text-transform: uppercase;
+  font-size: var(--font-size-xl);
+}
+#skills .section-title::after {
+  background: var(--primary-text);
+}
+#skills .skill-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-l);
+}
+#skills .skill-list .item {
+  color: #fff;
+}
+
+/*END*/
 /*FOOTER*/
 .footer-section {
   padding: 20px 0;
-  background: var(--primary-text);
+  background: var(--primary-color);
 }
 .footer-section :where(.copyright-text) {
-  color: var(--accent-color);
+  color: var(--secondary-text);
 }
 .footer-section .section-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 /*MEDIA QUERY*/
@@ -449,6 +510,7 @@ header #navbar {
   .hero-section .hero-image-wrapper {
     max-width: 270px;
     margin-right: 0;
+    z-index: 1;
   }
   /*CAREER*/
   /* Place the timelime to the left */
