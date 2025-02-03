@@ -4,6 +4,7 @@
 :root {
   --primary-color: #00acc1;
   --secondary-color: #4dd0e1;
+  --headline-text: #0f090b;
   --dark-text: #0f090b;
   --sub-text: #000;
   --light-text: #fff;
@@ -73,6 +74,7 @@ html {
 .darkmode {
   --primary-color: #0b0c10;
   --secondary-color: #1f2833;
+  --headline-text: #66fcf1;
   --dark-text: #fff;
   --sub-text: #c5c6c7;
   --light-text: #66fcf1;
@@ -191,7 +193,7 @@ header {
 
     .title {
       font-size: var(--font-size-xxl);
-      color: var(--dark-text);
+      color: var(--headline-text);
       font-family: Roboto, sans-serif;
     }
 
@@ -452,7 +454,7 @@ header {
 
 /*SKILLS*/
 #skills {
-  padding: 120px 0;
+  padding: 50px 0 100px;
   background: var(--secondary-color);
   color: var(--dark-text);
 
@@ -467,15 +469,62 @@ header {
     }
   }
 
-  .skill-list {
+  .section-content {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    font-size: var(--font-size-l);
+    justify-content: center;
+    gap: 150px 80px;
+    flex-grow: 1;
+    margin: 0 auto;
 
-    .item {
-      color: #fff;
+    .flip-box {
+      background-color: transparent;
+      width: 300px;
+      height: 235px;
+      perspective: 1000px;
+      flex-basis: 15%;
+    }
+
+    .flip-box-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-box:hover .flip-box-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-box-front,
+    .flip-box-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .flip-box-front {
+      background-color: transparent;
+      color: var(--dark-text);
+
+      .skill-image{
+        max-width: 65%;
+        aspect-ratio: 1;
+      }
+    }
+
+    .flip-box-back {
+      background-color: var(--accent-color);
+      color: var(--dark-text);
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
@@ -503,7 +552,7 @@ header {
     --card-width: 398px;
     --card-max-width: 80%;
     --card-height: 844px;
-    --carousel-min-width: 600px;
+    --carousel-min-width: 330px;
     z-index: 1;
     position: relative;
     margin: 0 auto;
@@ -533,6 +582,12 @@ header {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      a {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
     }
   }
 
@@ -555,10 +610,16 @@ header {
   .card:nth-of-type(3) {
     background-image: url("assets/solspring-mobile.png");
   }
+
   .card:nth-of-type(4) {
     background-image: url("assets/b&w-mobile.png");
   }
+
   .card:nth-of-type(5) {
+    background-image: url("assets/sito-mobile.png");
+  }
+
+  .card:nth-of-type(6) {
     background-image: url("assets/sito-mobile.png");
   }
 }
@@ -582,6 +643,18 @@ header {
 /*END*/
 
 /*MEDIA QUERY*/
+@media screen and (max-width: 1024px) {
+  #skills {
+    .skill-list {
+      gap: 60px;
+
+      .skill-item {
+        width: calc(100% / 3 - 60px);
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 900px) {
   :root {
     --font-size-m: 1rem;
@@ -660,7 +733,7 @@ header {
     .section-content {
       gap: 50px;
       text-align: center;
-      padding: 30px 20px 20px;
+      padding: 110px 20px 50px;
       flex-direction: column-reverse;
       justify-content: center;
     }
@@ -715,17 +788,63 @@ header {
     left: 0%;
   }
   /*END*/
+
+  /*SKILLS*/
+  #skills {
+    .skill-list {
+      gap: 30px;
+
+      .skill-item {
+        width: calc(100% / 2 - 30px);
+
+        .skill-image {
+          max-width: 200px;
+        }
+      }
+    }
+  }
+  /*END*/
 }
 
 @media screen and (max-width: 640px) {
   .card-carousel {
-    margin-left: calc((125vw - var(--carousel-min-width) - 40px) / 2);
+    --card-width: 398px;
+    --card-max-width: 80%;
+    --card-height: 844px;
+    --carousel-min-width: 330px;
+    margin: 0 auto;
+    width: 100%;
+    height: var(--card-height);
+    min-width: var(--carousel-min-width);
+    transition: filter 0.3s ease;
+
+    .card {
+      background: whitesmoke;
+      width: var(--card-width);
+      max-width: var(--card-max-width);
+      text-align: center;
+      padding: 1em;
+      min-width: 250px;
+      height: var(--card-height);
+      position: absolute;
+      margin: 0 auto;
+    }
   }
 
   .footer-section {
     .section-content {
       flex-direction: column;
       gap: 20px;
+    }
+  }
+
+  #skills {
+    .skill-list {
+      gap: 60px;
+
+      .skill-item {
+        width: 100%;
+      }
     }
   }
 }
